@@ -1,0 +1,24 @@
+@page "/dragonball"
+@inject DragonBallService DbzService
+
+<h3>Consulta API DragonBall</h3>
+
+<input @bind="id" placeholder="Digite o ID (ex: 2)" />
+<button @onclick="Buscar">Consultar</button>
+
+@if (personagem != null)
+{
+    <img src="@personagem.Image" width="200" />
+    <h4>@personagem.Name</h4>
+    <p>Raça: @personagem.Race</p>
+}
+
+@code {
+    int id = 1;
+    Character personagem;
+
+    async Task Buscar()
+    {
+        personagem = await DbzService.GetCharacterByIdAsync(id);
+    }
+}
